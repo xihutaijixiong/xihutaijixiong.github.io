@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西湖太极熊的个人知识库</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        /* Logo样式 */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* 个人信息样式 */
+        .profile-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .profile-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .profile-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* 个人信息弹窗 */
+        .profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .profile-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .profile-info h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .profile-details {
+            margin-top: 1.5rem;
+        }
+        
+        .profile-details p {
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+        }
+        
+        .close-profile {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* 导航样式 */
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 主内容区域 */
+        main {
+            flex: 1;
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* 分类网格样式 */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .category {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border-top: 5px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: inherit;
+        }
+        
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category:nth-child(1) {
+            border-color: #3498db;
+        }
+        
+        .category:nth-child(2) {
+            border-color: #2ecc71;
+        }
+        
+        .category:nth-child(3) {
+            border-color: #e74c3c;
+        }
+        
+        .category:nth-child(4) {
+            border-color: #f39c12;
+        }
+        
+        .category h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* 文章列表样式 */
+        .article-list {
+            list-style: none;
+        }
+        
+        .article-list li {
+            margin: 1rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        
+        .article-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #3498db;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .article-list a {
+            text-decoration: none;
+            color: #555;
+            display: block;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+        }
+        
+        .article-list a:hover {
+            color: #3498db;
+            background: #f8f9fa;
+            padding-left: 1.5rem;
+            border-left: 3px solid #3498db;
+        }
+        
+        /* 横向布局区域 */
+        .horizontal-section {
+            margin: 4rem 0;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .view-all {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-all:hover {
+            gap: 12px;
+        }
+        
+        /* 横向滚动容器 */
+        .horizontal-scroll {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 10px 5px 25px;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+        
+        /* 课程卡片样式 */
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            min-width: 320px;
+            border-left: 5px solid #9b59b6;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .course-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .course-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 1.5rem;
+        }
+        
+        .course-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #9b59b6;
+            text-align: right;
+        }
+        
+        .enroll-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .enroll-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+        }
+        
+        /* 产品卡片样式 */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            min-width: 320px;
+            border-left: 5px solid #1abc9c;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .product-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-tag {
+            background: #e8f6f3;
+            color: #1abc9c;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1abc9c;
+            text-align: right;
+            margin-bottom: 1.5rem;
+        }
+        
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 188, 156, 0.4);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
+            }
+            
+            .logo-container, .profile-container {
+                position: static;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+            
+            .logo-container {
+                margin-top: 1rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            main {
+                padding: 2rem 1rem;
+            }
+            
+            .categories {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                width: 80%;
+                text-align: center;
+            }
+            
+            .course-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .course-card, .product-card {
+                min-width: 280px;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .category, .course-card, .product-card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        .category:nth-child(1) { animation-delay: 0.1s; }
+        .category:nth-child(2) { animation-delay: 0.2s; }
+        .category:nth-child(3) { animation-delay: 0.3s; }
+        .category:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- Logo区域 -->
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-paw"></i>
+                </div>
+                <div class="logo-text">西湖太极熊</div>
+            </div>
+            
+            <!-- 个人信息区域 -->
+            <div class="profile-container">
+                <button class="profile-btn" id="profileBtn">
+                    <i class="fas fa-user"></i> 关于我
+                </button>
+            </div>
+            
+            <h1>西湖太极熊的知识库</h1>
+            <p>记录学习、思考与成长的知识沉淀空间 | 数据分析 · 知识管理 · 英语学习 · 旅游记录 · 课程 · 产品</p>
+            <nav>
+                <a href="#data-analysis">数据分析</a>
+                <a href="#knowledge-management">知识管理</a>
+                <a href="#english-learning">英语学习</a>
+                <a href="#travel">旅游记录</a>
+                <a href="#courses">课程</a>
+                <a href="#products">产品</a>
+            </nav>
+        </header>
+
+        <!-- 个人信息弹窗 -->
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-content">
+                <button class="close-profile" id="closeProfile">&times;</button>
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3>西湖太极熊</h3>
+                        <p>知识管理爱好者 & 数据分析师</p>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <p><i class="fas fa-map-marker-alt"></i> 杭州 · 西湖</p>
+                    <p><i class="fas fa-graduation-cap"></i> 专注于数据分析与知识管理</p>
+                    <p><i class="fas fa-heart"></i> 热爱学习、旅行和分享知识</p>
+                    <p><i class="fas fa-language"></i> 中英文内容创作者</p>
+                    <p><i class="fas fa-tools"></i> 擅长Python、SQL、数据可视化</p>
+                    <p><i class="fas fa-book"></i> Obsidian & Notion 深度用户</p>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee;">
+                    <p><strong>联系我：</strong></p>
+                    <p><i class="fas fa-envelope"></i> taijixiong@example.com</p>
+                    <p><i class="fab fa-github"></i> github.com/taijixiong</p>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <section class="categories">
+                <div class="category" id="data-analysis">
+                    <h2><i class="fas fa-chart-bar"></i> 数据分析</h2>
+                    <ul class="article-list">
+                        <li><a href="articles/python-basics.md">Python数据分析入门</a></li>
+                        <li><a href="articles/excel-tips.md">Excel高级技巧与函数</a></li>
+                        <li><a href="articles/data-visualization.md">数据可视化最佳实践</a></li>
+                        <li><a href="articles/sql-queries.md">SQL查询优化与性能调优</a></li>
+                        <li><a href="articles/machine-learning.md">机器学习入门指南</a></li>
+                    </ul>
+                </div>
+                
+                <div class="category" id="knowledge-management">
+                    <h2><i class="fas fa-folder-open"></i> 知识管理</h2>
+                    <ul class="article-list">
+                        <li><a href="articles/note-taking-methods.md">高效笔记方法与技巧</a></li>
+                        <li><a href="articles/digital-tools.md">2025年数字工具推荐</a></li>
+                        <li><a href="知识管理/谈谈用Obsidian的苦与乐？.md">Obsidian使用心得与技巧</a></li>
+                        <li><a href="articles/second-brain.md">如何构建个人第二大脑</a></li>
+                        <li><a href="articles/workflow-optimization.md">工作流优化实践</a></li>
+                    </ul>
+                </div>
+                
+                <div class="category" id="english-learning">
+                    <h2><i class="fas fa-language"></i> 英语学习</h2>
+                    <ul class="article-list">
+                        <li><a href="articles/vocabulary-building.md">高效词汇积累技巧</a></li>
+                        <li><a href="articles/listening-practice.md">听力训练方法与资源</a></li>
+                        <li><a href="articles/speaking-strategies.md">口语提升策略与实践</a></li>
+                        <li><a href="articles/reading-materials.md">优质英文阅读材料推荐</a></li>
+                        <li><a href="articles/writing-skills.md">英文写作技巧提升</a></li>
+                    </ul>
+                </div>
+                
+                <div class="category" id="travel">
+                    <h2><i class="fas fa-plane"></i> 旅游记录</h2>
+                    <ul class="article-list">
+                        <li><a href="articles/japan-trip.md">日本关西文化之旅</a></li>
+                        <li><a href="articles/travel-gear.md">2025旅行装备终极清单</a></li>
+                        <li><a href="articles/taiwan-food.md">台湾美食探索与推荐</a></li>
+                        <li><a href="articles/budget-travel.md">预算旅行完全攻略</a></li>
+                        <li><a href="articles/photography-tips.md">旅行摄影技巧分享</a></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- 课程横向区域 -->
+            <section class="horizontal-section" id="courses">
+                <div class="section-header">
+                    <h2><i class="fas fa-graduation-cap"></i> 精选课程</h2>
+                    <a href="#" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="horizontal-scroll">
+                    <div class="course-card">
+                        <h3><i class="fas fa-laptop-code"></i> Python数据分析实战</h3>
+                        <p>从零开始掌握Python数据分析核心技能，包括Pandas、NumPy、Matplotlib等库的使用，通过实际案例学习数据处理和可视化。</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 36小时</span>
+                            <span><i class="fas fa-signal"></i> 中级</span>
+                            <span><i class="far fa-user"></i> 1,258人</span>
+                        </div>
+                        <div class="course-price">¥299</div>
+                        <a href="#" class="enroll-btn">立即报名</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <h3><i class="fas fa-brain"></i> 知识管理大师课</h3>
+                        <p>学习如何高效构建个人知识体系，掌握Obsidian、Notion等工具的高级用法，建立第二大脑提升工作效率。</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 24小时</span>
+                            <span><i class="fas fa-signal"></i> 初级-中级</span>
+                            <span><i class="far fa-user"></i> 892人</span>
+                        </div>
+                        <div class="course-price">¥199</div>
+                        <a href="#" class="enroll-btn">立即报名</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <h3><i class="fas fa-chart-line"></i> 数据可视化进阶</h3>
+                        <p>学习使用Tableau、Power BI等工具创建专业级数据可视化报表和仪表板，掌握数据故事讲述技巧。</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 18小时</span>
+                            <span><i class="fas fa-signal"></i> 中级</span>
+                            <span><i class="far fa-user"></i> 743人</span>
+                        </div>
+                        <div class="course-price">¥249</div>
+                        <a href="#" class="enroll-btn">立即报名</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <h3><i class="fas fa-database"></i> SQL高级查询与优化</h3>
+                        <p>深入理解SQL高级查询技巧，学习数据库性能优化方法，掌握复杂业务场景下的数据处理能力。</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 20小时</span>
+                            <span><i class="fas fa-signal"></i> 高级</span>
+                            <span><i class="far fa-user"></i> 532人</span>
+                        </div>
+                        <div class="course-price">¥329</div>
+                        <a href="#" class="enroll-btn">立即报名</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 产品横向区域 -->
+            <section class="horizontal-section" id="products">
+                <div class="section-header">
+                    <h2><i class="fas fa-cube"></i> 推荐产品</h2>
+                    <a href="#" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="horizontal-scroll">
+                    <div class="product-card">
+                        <h3><i class="fas fa-book"></i> 知识管理模板库</h3>
+                        <p>一套完整的Obsidian和Notion模板，帮助您快速建立个人知识管理系统，包含项目跟踪、读书笔记、日程规划等模板。</p>
+                        <div class="product-tags">
+                            <span class="product-tag">Obsidian</span>
+                            <span class="product-tag">Notion</span>
+                            <span class="product-tag">模板</span>
+                            <span class="product-tag">效率</span>
+                        </div>
+                        <div class="product-price">¥89</div>
+                        <a href="#" class="buy-btn">立即购买</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <h3><i class="fas fa-chart-pie"></i> 数据分析工具包</h3>
+                        <p>包含常用数据分析脚本、可视化模板和数据清洗工具的完整资源包，适用于Python和R语言环境。</p>
+                        <div class="product-tags">
+                            <span class="product-tag">Python</span>
+                            <span class="product-tag">数据分析</span>
+                            <span class="product-tag">脚本</span>
+                            <span class="product-tag">模板</span>
+                        </div>
+                        <div class="product-price">¥129</div>
+                        <a href="#" class="buy-btn">立即购买</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <h3><i class="fas fa-passport"></i> 旅行规划助手</h3>
+                        <p>智能旅行规划工具，提供行程安排、预算管理和目的地推荐功能，包含全球热门旅行路线模板。</p>
+                        <div class="product-tags">
+                            <span class="product-tag">旅行</span>
+                            <span class="product-tag">规划</span>
+                            <span class="product-tag">工具</span>
+                            <span class="product-tag">模板</span>
+                        </div>
+                        <div class="product-price">¥69</div>
+                        <a href="#" class="buy-btn">立即购买</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <h3><i class="fas fa-language"></i> 英语学习资料包</h3>
+                        <p>包含词汇表、语法指南、听力材料和阅读资源的完整英语学习资料包，适合不同水平的学习者。</p>
+                        <div class="product-tags">
+                            <span class="product-tag">英语</span>
+                            <span class="product-tag">学习</span>
+                            <span class="product-tag">资料</span>
+                            <span class="product-tag">资源</span>
+                        </div>
+                        <div class="product-price">¥99</div>
+                        <a href="#" class="buy-btn">立即购买</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025 西湖太极熊的个人知识库</p>
+            <p>持续更新中 · 记录思考与成长 · 构建个人知识体系</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加滚动动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const categories = document.querySelectorAll('.category');
+            const courseCards = document.querySelectorAll('.course-card');
+            const productCards = document.querySelectorAll('.product-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            categories.forEach(category => {
+                category.style.animationPlayState = 'paused';
+                observer.observe(category);
+            });
+            
+            courseCards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+            
+            productCards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+            
+            // 导航平滑滚动
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // 个人信息弹窗功能
+            const profileBtn = document.getElementById('profileBtn');
+            const profileModal = document.getElementById('profileModal');
+            const closeProfile = document.getElementById('closeProfile');
+            
+            profileBtn.addEventListener('click', function() {
+                profileModal.style.display = 'flex';
+            });
+            
+            closeProfile.addEventListener('click', function() {
+                profileModal.style.display = 'none';
+            });
+            
+            // 点击弹窗外部关闭
+            window.addEventListener('click', function(event) {
+                if (event.target === profileModal) {
+                    profileModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
