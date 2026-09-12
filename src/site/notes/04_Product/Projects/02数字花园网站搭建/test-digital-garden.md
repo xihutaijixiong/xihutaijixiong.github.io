@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/04-product/projects/02/test-digital-garden/","title":"测试发布数字花园","tags":["DigitalGardenWeb"],"dg-note-properties":{"sort_index":23000,"title":"测试发布数字花园","tags":["DigitalGardenWeb"]}}
+{"dg-publish":true,"permalink":"/04-product/projects/02/test-digital-garden/","title":"测试发布数字花园","tags":["DigitalGardenWeb"],"dg-note-properties":{"sort_index":23000,"title":"测试发布数字花园","tags":["DigitalGardenWeb"],"permalink":"/test-digital-garden/"}}
 ---
 
 新建一个页面作为数字花园的首页，然后按照如下配置obsidian笔记属性：
