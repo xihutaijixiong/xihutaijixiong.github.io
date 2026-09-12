@@ -1,0 +1,36 @@
+---
+{"dg-publish":true,"permalink":"/04-product/projects/02/test-digital-garden/","title":"测试发布数字花园","tags":["DigitalGardenWeb"],"dg-note-properties":{"sort_index":23000,"title":"测试发布数字花园","tags":["DigitalGardenWeb"]}}
+---
+
+新建一个页面作为数字花园的首页，然后按照如下配置obsidian笔记属性：
+
+```
+dg-publish: true
+dg-home: true
+permalink: /：代表根目录
+title: 西湖太极熊：数字花园
+```
+
+* dg-publish: true：代表要发布的笔记
+* dg-home: true：代表作为首页
+* title: 代表首页标题
+
+通过Command+P快捷键，选择Digital Garden：Publish Active Note，点击发布，如果发布成功会看到success。
+
+![测试发布数字花园首页.png\|394](/img/user/04_Product/Projects/02%E6%95%B0%E5%AD%97%E8%8A%B1%E5%9B%AD%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/%E6%B5%8B%E8%AF%95%E5%8F%91%E5%B8%83%E6%95%B0%E5%AD%97%E8%8A%B1%E5%9B%AD%E9%A6%96%E9%A1%B5.png)
+
+
+
+问题：
+
+1. 图片渲染问题？
+2. 页面添加链接问题？
+
+
+[https://xihutaijixiong.github.io/xihutaijixiong/](https://xihutaijixiong.github.io/xihutaijixiong/)
+
+[https://xihutaijixiong.github.io/xihutaijixiong2/](https://xihutaijixiong.github.io/xihutaijixiong2/)
+
+
+[[04_Product/Projects/02数字花园网站搭建/数字花园首页\|数字花园首页]]
+
