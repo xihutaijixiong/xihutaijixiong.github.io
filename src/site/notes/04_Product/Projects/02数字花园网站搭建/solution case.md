@@ -1,0 +1,24 @@
+---
+{"dg-publish":true,"permalink":"/04-product/projects/02/solution-case/","title":"解决方案","tags":["DigitalGardenWeb"],"dg-note-properties":{"sort_index":20000,"title":"解决方案","tags":["DigitalGardenWeb"]}}
+---
+
+## 历史方案
+
+尝试过很多种方法，有尝试在一些免费平台创建网站，技术门槛太高，不适合自己，还有通过在github上，通过免费的部署方式，按照网上教程去生成一个博客网站，如下：
+
+![解决方案.png](/img/user/04_Product/Projects/02%E6%95%B0%E5%AD%97%E8%8A%B1%E5%9B%AD%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.png)
+
+虽然可以通过本地测试，然后通过将Obsidian中的内容复制到本地博客文件，再发布部署到网页端，但是每次要更新内容，还是很不方便，比如：
+
+* 每次要重新粘贴文本到网站内容文件夹中
+* 每次要调整笔记中的图文格式
+* 每次要通过终端通过代码来部署发布
+
+整体消耗时间还是太多，心力消耗也大，很容易劝退持续完善自己的网站的动力。
+
+历史网站：[taichi-ber](https://xihutaijixiong.github.io/taichi-bear/)
+
+## 最新方案
+
+在不断寻找新的更高效，且满足基本需求的方法后，对比过后发现一款Obsidian插件：Digital Garden，可以完全满足我的需求。
+
