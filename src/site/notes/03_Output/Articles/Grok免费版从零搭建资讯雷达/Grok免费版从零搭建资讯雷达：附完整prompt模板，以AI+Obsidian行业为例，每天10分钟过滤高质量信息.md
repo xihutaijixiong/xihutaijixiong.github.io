@@ -73,7 +73,3 @@
 通过以上的Prompt进行AI实验，发现给出的内容质量和商机评估都非常值得学习。不同的人结合自己的不同需求，完全可以进一步修改Prompt找到适合自己的方案设计。
 
 这套Prompt方案的核心在于框架，而非工具。如果您觉得这个思路对您有启发，可以回复：**雷达**，我可以将这份Prompt模板无偿分享，您稍作修改即可适配自己的领域。
-
-
-通过网盘分享的文件：Daily AI One-Person Company Radar.md
-链接: https://pan.baidu.com/s/1QbUZueeGQRB6r9PxEoxpXQ 提取码: obcd
