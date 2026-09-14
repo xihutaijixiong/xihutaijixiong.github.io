@@ -194,8 +194,3 @@
 # 总结
 
 先通过同步阅读笔记到Obsidian，再通过skill生产数据资产，然后通过workbuddy来进行主题分析，生成美观的分析报告。当然通过不同的AI工具一样可以进行分析。
-
-对于各种涉及的skill和模版我都会放在我的网站，免费分享，有需要的可以去网站下载。
-> **网站链接:https://xihutaijixiong.github.io/taichi-bear/
-
---END--
